@@ -34,6 +34,8 @@ export default function CheckoutForm() {
   }, []);
 
   const handleSubmit = async (ev) => {
+    
+
     ev.preventDefault();
     setProcessing(true);
 
@@ -57,11 +59,16 @@ export default function CheckoutForm() {
       setSucceeded(true);
       setProcessing(false);
       setMetadata(payload.paymentIntent);
+
       console.log("[PaymentIntent]", payload.paymentIntent);
     }
   };
 
   const renderSuccess = () => {
+    
+    const variable = 3
+  
+
     return (
       <div className="sr-field-success message">
         <h1>Your test payment succeeded</h1>
