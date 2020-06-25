@@ -13,6 +13,7 @@ export default function CheckoutForm() {
   const [processing, setProcessing] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+  const orderstatus = 'your order is on the way';
 
   useEffect(() => {
     // Step 1: Fetch product details such as amount and currency from
@@ -58,17 +59,14 @@ export default function CheckoutForm() {
       setError(null);
       setSucceeded(true);
       setProcessing(false);
-      setMetadata(payload.paymentIntent);
-
+      //setMetadata(payload.paymentIntent);
+      setMetadata(orderstatus);
       console.log("[PaymentIntent]", payload.paymentIntent);
     }
   };
 
   const renderSuccess = () => {
     
-    const variable = 3
-  
-
     return (
       <div className="sr-field-success message">
         <h1>Your test payment succeeded</h1>

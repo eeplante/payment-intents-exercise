@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const app = express();
 const { resolve } = require("path");
-
+const cors = require('cors');
+const fs = require('fs');
 
 // Use JSON parser for all non-webhook routes
 app.use((req, res, next) => {
@@ -14,6 +15,14 @@ app.use((req, res, next) => {
   } else {
     bodyParser.json()(req, res, next);
   }
+});
+
+const winston = require('winston');
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
 });
 
 app.get("/", (req, res) => {
@@ -84,6 +93,12 @@ app.post('/webhook', bodyParser.raw({type: 'application/json'}), async (req, res
   if (eventType === "payment_intent.succeeded") {
     // Fulfill any orders, e-mail receipts, etc
     console.log("💰 Payment received!");
+   //log to external file
+    console.log(data);
+    logger.log({
+      level: 'info',
+      message: data
+    });
   }
 
   if (eventType === "payment_intent.payment_failed") {
