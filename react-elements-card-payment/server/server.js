@@ -5,8 +5,6 @@ const bodyParser = require("body-parser");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const app = express();
 const { resolve } = require("path");
-const cors = require('cors');
-const fs = require('fs');
 
 // Use JSON parser for all non-webhook routes
 app.use((req, res, next) => {

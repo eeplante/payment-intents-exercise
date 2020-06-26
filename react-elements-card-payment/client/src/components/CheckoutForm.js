@@ -15,7 +15,17 @@ export default function CheckoutForm() {
   const elements = useElements();
   const orderstatus = 'your order is on the way';
 
+  //Post to cherry server
+  let randomString = () =>{ return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);}
+
   useEffect(() => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: 'React Hooks POST Request Example' })
+  };
+  fetch('http://localhost:8080/post/{ "userId": 1, "id": '+randomString()+',  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit", "body": "metadata"}') //, requestOptions)
+
     // Step 1: Fetch product details such as amount and currency from
     // API to make sure it can't be tampered with in the client.
     api.getProductDetails().then((productDetails) => {
