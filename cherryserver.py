@@ -29,7 +29,7 @@ class HelloWorld(object):
 	def post(self,request):
 
 		data = {}
-
+# post results to data_file.json
 		filename = "data_file.json"
 		with open(filename) as read_file:
 			data = json.load(read_file)
